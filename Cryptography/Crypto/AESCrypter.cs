@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using Cryptography.Write;
 
 namespace Cryptography.AES
 {
@@ -62,6 +63,7 @@ namespace Cryptography.AES
     {
         #region Fields
         private Aes _aes;
+        private Writer _writer;
         #endregion
 
         #region Properties
@@ -79,10 +81,21 @@ namespace Cryptography.AES
                 return "AES";
             }
         }
+        public Writer Writer
+        {
+            get
+            {
+                return _writer;
+            }
+        }
         #endregion
 
         #region Constructors
-        public AESCrypter(AESConfig config)
+        public AESCrypter() : this(AESConfig.High, new ChunkWriter())
+        {
+        }
+
+        public AESCrypter(AESConfig config, Writer writer)
         {
             _aes = Aes.Create();
 
@@ -92,6 +105,8 @@ namespace Cryptography.AES
 
             _aes.GenerateKey();
             _aes.GenerateIV();
+
+            _writer = writer;
         }
         #endregion
 
@@ -101,8 +116,7 @@ namespace Cryptography.AES
             ICryptoTransform encryptor = _aes.CreateEncryptor(_aes.Key, _aes.IV);
             using (CryptoStream cryptoStream = new CryptoStream(destination, encryptor, CryptoStreamMode.Write))
             {
-                source.CopyTo(cryptoStream);
-                // TODO: Handle Errors
+                _writer.Write(source, cryptoStream);
             }
         }
 
@@ -111,8 +125,7 @@ namespace Cryptography.AES
             ICryptoTransform decryptor = _aes.CreateDecryptor(_aes.Key, _aes.IV);
             using (CryptoStream cryptoStream = new CryptoStream(destination, decryptor, CryptoStreamMode.Write))
             {
-                source.CopyTo(cryptoStream);
-                // TODO: Handle Errors
+                _writer.Write(source, cryptoStream);
             }
         }
         #endregion

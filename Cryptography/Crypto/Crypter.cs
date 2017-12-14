@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Cryptography.Write;
 
 namespace Cryptography
 {
@@ -21,5 +22,6 @@ namespace Cryptography
     {
         string Name { get; }
         int KeySize { get; }
+        Writer Writer { get; }
     }
 }

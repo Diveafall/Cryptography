@@ -43,13 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AESCrypter.cs" />
+    <Compile Include="ChunkWriter.cs" />
+    <Compile Include="CopyWriter.cs" />
+    <Compile Include="Crypto\AESCrypter.cs" />
     <Compile Include="Crypto\FileCrypter.cs" />
     <Compile Include="Crypto\Crypter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Testing\TestEngine.cs" />
     <Compile Include="Testing\Tester.cs" />
     <Compile Include="Testing\CryptoTester.cs" />
+    <Compile Include="Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

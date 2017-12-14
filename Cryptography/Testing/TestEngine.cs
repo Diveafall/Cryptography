@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cryptography.Test;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,9 @@ using System.Threading.Tasks;
 
 namespace Cryptography.Test
 {
-    public class CryptoTester<C> : Tester where C: Crypter, new()
+    class TestEngine
     {
-        FileCrypter<C> _fileCrypter = new FileCrypter<C>();
-
-        public void Test()
-        {
-            _fileCrypter.Encrypt();
-            _fileCrypter.Decrypt();
-        }
+        Tester[] testers;
 
         public static long TimedTest<T>(T tester) where T : Tester
         {
@@ -22,6 +17,11 @@ namespace Cryptography.Test
             tester.Test();
             watch.Stop();
             return watch.ElapsedMilliseconds;
+        }
+
+        public static long TimedCryptoTest<C>() where C: Crypter, new()
+        {
+            return TimedTest(new CryptoTester<C>());
         }
     }
 }

@@ -11,19 +11,25 @@ namespace Cryptography
     {
         C _crypter;
 
+        #region Constructors
+        public FileCrypter()
+        {
+            _crypter = new C();
+        }
         public FileCrypter(C encrypter)
         {
             _crypter = encrypter == null ? new C() : encrypter;
         }
+        #endregion
 
-        void Encrypt(string sourceFilePath = @"C:\Users\david.isayan\Desktop\ntru.pdf", string destinationFilePath = @"C:\Users\david.isayan\Desktop\encrypted.dat")
+        public void Encrypt(string sourceFilePath = @"C:\Users\david.isayan\Desktop\rc.jpg", string destinationFilePath = @"C:\Users\david.isayan\Desktop\encrypted.dat")
         {
             var source = sourceFileStream(sourceFilePath);
             var destination = destinationFileStream(destinationFilePath);
             _crypter.Encrypt(source, destination);
         }
 
-        void Decrypt(string sourceFilePath = @"C:\Users\david.isayan\Desktop\encrypted.dat", string destinationFilePath = @"C:\Users\david.isayan\Desktop\decrypted.pdf")
+        public void Decrypt(string sourceFilePath = @"C:\Users\david.isayan\Desktop\encrypted.dat", string destinationFilePath = @"C:\Users\david.isayan\Desktop\decrypted.jpg")
         {
             var source = sourceFileStream(sourceFilePath);
             var destination = destinationFileStream(destinationFilePath);
