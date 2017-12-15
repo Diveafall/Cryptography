@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cryptography
 {
-    public class TaskProgress
+    public static class Helpers
     {
-        public int ProgressPercentage { get; set; }
     }
 }
